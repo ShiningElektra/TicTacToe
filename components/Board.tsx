@@ -1,12 +1,22 @@
+import { useState } from "react";
 import styles from "../styles/Board.module.css";
 import Square from "./Square";
 
 export default function Board() {
-  function renderSquare(i: number) {
-    return <Square value={i} />;
+  const [squares, setSquares] = useState(Array(9).fill(null));
+
+  function handleClick(i) {
+    const newSquares = squares.slice();
+    newSquares[i] = "X";
+    setSquares(newSquares);
   }
 
-  const status = "Next player: X";
+  function renderSquare(i) {
+    //erstetze die renderSquareValue({renderSquare(0)}) durch den Wert aus useState ->
+    return <Square value={squares[i]} onClick={() => handleClick(i)} />;
+  }
+
+  const status = "Next player: x";
 
   return (
     <div>
